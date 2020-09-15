@@ -5,15 +5,29 @@ defmodule AcqdatCore.StreamLogic.Token do
   The token provides a structure to the message passing through different nodes.
   """
   @data_types ~w(
-    strcutured_telemetry
-    unstructured_telemtry
+    structured_telemetry
+    raw_telemtry
   )a
 
+  @enforce_keys [:message_type, :message_payload, :metadata]
   defstruct ~w(
     message_type
     message_payload
     metadata
   )a
+
+  @typedoc """
+  * `:message_type`: The type of message can be one of the following type.
+          - `structured_telemetry`
+          - `raw_telemetry`
+  * `:message_payload`: the telemetry payload
+  * `:metadata`: extra information about the message.
+  """
+  @type t :: %__MODULE__{
+    message_type: String.t(),
+    message_payload: map,
+    metadata: map
+  }
 
   def new(opts) when opts == %{} do
     {:error, "expect data and data_type"}
@@ -21,7 +35,11 @@ defmodule AcqdatCore.StreamLogic.Token do
 
   def new(opts) do
     if valid_data_type?(opts.data_type) do
-      {:ok, struct(%__MODULE__{}, opts)}
+      {:ok, struct(%__MODULE__{
+        message_type: "",
+        message_payload: %{},
+        metadata: %{}
+      }, opts)}
     else
       {:error, "invalid data type"}
     end

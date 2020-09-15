@@ -11,7 +11,7 @@ defmodule AcqdatCore.Repo.Migrations.AddStreamLogicWorkflow do
       #associations
       add(:project_id, references("acqdat_projects", on_delete: :delete_all),
         null: false)
-      belongs_to(:org, references("acqdat_organisation", on_delete: :delete_all),
+      add(:org, references("acqdat_organisation", on_delete: :delete_all),
         null: false)
 
       timestamps(type: :timestamptz)
