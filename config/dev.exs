@@ -85,3 +85,24 @@ config :acqdat_core,
          "SECRET_KEY_BASE",
          "i6gwFKNscK4NSgptoHjMsYjmbUgFLKzehE6EBUMOkZpWF5h7Ac+J+IT9z5XVtK/d"
        )
+
+# Configure Kafka_ex
+
+#kafka_ex configuration
+config :kafka_ex,
+  brokers: [
+    {"localhost", 9093},
+    {"localhost", 9094},
+    {"localhost", 9095}
+  ],
+  consumer_group: "kafka_ex",
+  client_id: "kafka_ex",
+  disable_default_worker: true,
+  sync_timeout: 3000,
+  max_restarts: 10,
+  max_seconds: 60,
+  commit_interval: 5_000,
+  commit_threshold: 100,
+  sleep_for_reconnect: 400,
+  use_ssl: false,
+  kafka_version: "2.6.0"
