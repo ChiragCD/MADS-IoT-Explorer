@@ -104,6 +104,7 @@ defmodule AcqdatCore.MixProject do
 
       #stream processing and communications with kafka
       {:kafka_ex, "~> 0.11"},
+
       # if using snappy compression
       {:snappy, git: "https://github.com/fdmanana/snappy-erlang-nif"}
     ]
