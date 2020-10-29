@@ -19,4 +19,8 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
   def run(request_id, inport_args, _outport_args, _instance_pid, configuration) do
 
   end
+
+  defp execute_js_function(script, arguments) do
+
+  end
 end

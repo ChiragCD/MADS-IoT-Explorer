@@ -58,7 +58,10 @@ defmodule AcqdatApi.MixProject do
 
       # sentry logging
       {:sentry, "~> 7.0"},
-      {:hackney, "~> 1.8"}
+      {:hackney, "~> 1.8"},
+
+      # javascript execution
+      {:execjs, git: "https://github.com/devinus/execjs"}
     ]
   end
 end
