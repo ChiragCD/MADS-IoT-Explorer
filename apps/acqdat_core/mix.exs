@@ -47,6 +47,7 @@ defmodule AcqdatCore.MixProject do
       {:ecto_sql, "~> 3.2.0"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"},
+      {:poison, "~> 4.0", override: true},
 
       # auth
       {:comeonin, "~> 4.1.1"},
@@ -106,7 +107,10 @@ defmodule AcqdatCore.MixProject do
       {:kafka_ex, "~> 0.11"},
 
       # if using snappy compression
-      {:snappy, git: "https://github.com/fdmanana/snappy-erlang-nif"}
+      {:snappy, git: "https://github.com/fdmanana/snappy-erlang-nif"},
+
+      # javascript execution
+      {:execjs, git: "https://github.com/devinus/execjs"}
     ]
   end
 

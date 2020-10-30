@@ -40,8 +40,6 @@ defmodule AcqdatUmbrella.MixProject do
     [
       {:phoenix, "~> 1.4.8"},
       {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_ecto, "~> 4.0"},
-      {:phoenix_html, "~> 2.13.2"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},

@@ -20,7 +20,7 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
 
   end
 
-  defp execute_js_function(script, arguments) do
+  def execute_js_function(script, arguments) do
 
   end
 end
