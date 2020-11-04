@@ -286,7 +286,7 @@ defmodule Virta.Component do
         end)
       end
 
-      defoverridable loop: 4
+      defoverridable loop: 4, dispatch: 2
     end
   end
 end

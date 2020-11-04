@@ -3,6 +3,10 @@ defmodule AcqdatCore.StreamLogic.Token do
   Models a message token passing through differnt nodes inside a workflow.
 
   The token provides a structure to the message passing through different nodes.
+
+  **Note**
+  Please make use of `Token.new: 1` for creating `token` struct instead of creating
+  directly as it provides certain checks on the token keys.
   """
   @data_types ~w(
     structured_telemetry
