@@ -16,6 +16,7 @@ defmodule AcqdatCore.StreamLogic.Functions.StartNode do
 
   @impl true
   def run(request_id, inport_args, _outport_args, _instance_pid, _configuration) do
-    {request_id, :reply, inport_args}
+    input_args = Map.get(inport_args, :std_in)
+    {request_id, :reply, %{std_out: input_args}}
   end
 end

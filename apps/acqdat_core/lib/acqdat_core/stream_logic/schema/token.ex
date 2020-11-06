@@ -8,9 +8,9 @@ defmodule AcqdatCore.StreamLogic.Token do
   Please make use of `Token.new: 1` for creating `token` struct instead of creating
   directly as it provides certain checks on the token keys.
   """
-  @data_types ~w(
+  @message_types ~w(
     structured_telemetry
-    raw_telemtry
+    raw_telemetry
   )a
 
   @enforce_keys [:message_type, :message_payload, :metadata]
@@ -33,23 +33,25 @@ defmodule AcqdatCore.StreamLogic.Token do
     metadata: map
   }
 
-  def new(opts) when opts == %{} do
+  def new(opts) when opts == [] do
     {:error, "expect data and data_type"}
   end
 
   def new(opts) do
-    if valid_data_type?(opts.data_type) do
+    if valid_data_type?(Keyword.fetch(opts, :message_type)) do
       {:ok, struct(%__MODULE__{
         message_type: "",
         message_payload: %{},
         metadata: %{}
       }, opts)}
     else
-      {:error, "invalid data type"}
+      {:error, "invalid message type"}
     end
   end
 
-  def valid_data_type?(data_type) do
-    Enum.member?(@data_types, data_type)
+  def valid_data_types?(:error), do: false
+
+  def valid_data_type?({:ok, message_type}) do
+    Enum.member?(@message_types, message_type)
   end
 end

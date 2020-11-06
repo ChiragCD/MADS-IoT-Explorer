@@ -8,7 +8,7 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
   @inports [:input]
   @outports [:true, :false]
   @properties %{
-    script: "return msg.temperature > 20"
+    script: "return message_payload.temperature > 20"
   }
   @category :filter
   @display_name "Script"
@@ -17,7 +17,7 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
   the true or false path.
 
   The incoming data has the following structure.
-  {messsag_type: '', message_payload: '', metadata: ''}
+  {message_type: '', message_payload: '', metadata: ''}
 
   A key inside the message_payload can be accessed to run comparisons
   e.g. message_payload.value > 10.
@@ -28,14 +28,17 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
 
   use Virta.Component
 
-  @impl True
-  def run(request_id, inport_args, _outport_args, _instance_pid, configuration) do
-
+  @impl true
+  def run(request_id, inport_args, _outport_args, _instance_pid, properties) do
+    params = Map.get(inport_args, :input)
+    result = execute_js_function(properties.script, params)
+    require IEx
+    IEx.pry
+    {request_id, :reply, result}
   end
 
-  def execute_js_function(script, arguments) do
+  def execute_js_function(script, params) do
 
   end
-
 
 end
