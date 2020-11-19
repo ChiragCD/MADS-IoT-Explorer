@@ -5,7 +5,7 @@ defmodule AcqdatCore.StreamLogic.Functions.ActionNodes.CreateAlarm do
   @properties %{
     message_types: ["raw_telemetry", "structured_telemetry"]
   }
-  @category :filter
+  @category :action
   @display_name "Message Type Filter"
   @info """
   The nodes checks the `message_type` of the incoming message and verifies it

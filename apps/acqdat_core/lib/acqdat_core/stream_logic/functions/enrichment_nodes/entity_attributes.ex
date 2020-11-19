@@ -3,7 +3,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityAttributes do
   @outports [:success, :failure]
   @properties %{
   }
-  @category :filter
+  @category :enrichment
   @display_name "Entity Attributes"
   @info """
   Adds an entity attribute in the metadata portion of the message.

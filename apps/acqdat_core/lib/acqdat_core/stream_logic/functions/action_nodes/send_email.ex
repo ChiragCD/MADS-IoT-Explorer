@@ -5,7 +5,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.Email do
     email_addresses: [],
     template: ""
   }
-  @category :filter
+  @category :action
   @display_name "Email"
   @info """
   The node sends an email to the phone numbers configured.

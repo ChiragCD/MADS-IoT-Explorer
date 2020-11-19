@@ -5,7 +5,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
     phone_numbers: [],
     template: ""
   }
-  @category :filter
+  @category :action
   @display_name "SMS"
   @info """
   The node sends an SMS to the phone numbers configured.

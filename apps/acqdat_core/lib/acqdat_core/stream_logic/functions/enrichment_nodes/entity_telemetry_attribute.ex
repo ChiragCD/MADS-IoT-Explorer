@@ -3,10 +3,11 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityTelemetryAttribute
   @outports [:success, :failure]
   @properties %{
     entity: "",
-    entity_param: ""
-    all_similar_type_allow: true
+    entity_param: "",
+    all_similar_type_allow: [true, false],
+    fetch_mode: ["first", "last", "all"]
   }
-  @category :filter
+  @category :enrichment
   @display_name "Entity Telemetry"
   @info """
   Adds telemetry from an entity in the metadata. The entity and it's parameter
@@ -14,7 +15,12 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityTelemetryAttribute
   parameters are added to the metadata portion of the message.
 
   In case entity telemetry data is not found the message is sent on the failure
-  path. Also, of the `all_similar_type_allow`
+  path.
+
+  An optional `all_similar_type_allow` flag can be set to load the telemetry for
+  all entities of the same type. At present only `sensor` entities are supported for this
+  flag. In case the flag is set all the sensors belonging to a sensor type will have
+  the metadata enriched with their telemetry attributes.
   """
 
   use Virta.Component

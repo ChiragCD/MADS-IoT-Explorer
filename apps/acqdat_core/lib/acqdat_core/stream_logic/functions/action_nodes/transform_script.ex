@@ -4,7 +4,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.TransformScript do
   @properties %{
     script: "return {message_type: '', message_payload: '', metadata: ''}"
   }
-  @category :filter
+  @category :action
   @display_name "Transform Script"
   @info """
   Transforms the incoming message and returns a new message.

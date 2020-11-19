@@ -94,7 +94,14 @@ defmodule AcqdatApiWeb.Router do
 
     resources "/users", RoleManagement.UserController, only: [:show, :update, :index, :delete] do
       resources "/tasks", DataCruncher.TasksController, only: [:create, :index, :show, :delete]
+    end
 
+    scope "/stream-logic", StreamLogic do
+      get "/components", ComponentsController, :components, as: :stream_logic_component
+    end
+
+    resources "/users", RoleManagement.UserController, only: [:show, :update, :index] do
+      resources "/tasks", DataCruncher.TasksController, only: [:create, :index, :show]
       resources "/settings", RoleManagement.UserSettingController,
         only: [:create, :update],
         as: :settings

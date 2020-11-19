@@ -3,7 +3,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SaveTimeSeries do
   @outports [:timeseries_output]
   @properties %{
   }
-  @category :filter
+  @category :action
   @display_name "Save Timeseries"
   @info """
   Stores the data in timeseries database.
