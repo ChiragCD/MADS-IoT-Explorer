@@ -14,7 +14,7 @@ defmodule AcqdatCore.StreamLogic.Model.Helpers do
     list = StreamLogicFunctionEnum.__enum_map__()
 
     list
-    |> Stream.map(fn {key, value} ->
+    |> Stream.map(fn {key, _value} ->
       key
     end)
     |> Enum.map(fn module ->
