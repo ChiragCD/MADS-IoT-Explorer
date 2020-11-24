@@ -6,7 +6,7 @@ defmodule AcqdatCore.StreamLogic.Model.HelpersTest do
     test "returns functions with details" do
       function_list = Helpers.components()
 
-      assert length(function_list) == 13
+      assert length(function_list) == 14
       assert Enum.all?(function_list, fn module_detail ->
         Map.has_key?(module_detail, :inports) and
         Map.has_key?(module_detail, :outports) and

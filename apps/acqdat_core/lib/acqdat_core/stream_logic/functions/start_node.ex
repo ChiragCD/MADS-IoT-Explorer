@@ -6,7 +6,7 @@ defmodule AcqdatCore.StreamLogic.Functions.StartNode do
   @inports [:std_in]
   @outports [:std_out]
   @properties %{}
-  @category :common
+  @category :input
   @display_name "Input"
   @info """
   Node starts the logic Chain.

@@ -17,7 +17,7 @@ defmodule AcqdatApiWeb.StreamLogic.ComponentControllerTest do
       conn = get(conn, Routes.stream_logic_component_path(conn, :components, org.id))
 
       result = conn |> json_response(200)
-      assert length(result["components"]) == 13
+      assert length(result["components"]) == 14
     end
   end
 end
