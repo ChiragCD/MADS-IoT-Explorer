@@ -7,6 +7,7 @@ defmodule AcqdatCore.Repo.Migrations.AddStreamLogicWorkflow do
       add(:digraph, :map, null: false)
       add(:uuid, :string, null: false)
       add(:enabled, :boolean, default: true)
+      add(:metadata, :map)
 
       #associations
       add(:project_id, references("acqdat_projects", on_delete: :delete_all),

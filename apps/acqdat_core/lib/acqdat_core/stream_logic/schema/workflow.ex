@@ -16,6 +16,7 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     field(:digraph, :map, null: false)
     field(:uuid, :string, null: false)
     field(:enabled, :boolean, default: true)
+    field(:metadata, :map, default: %{})
 
     #associations
     belongs_to(:project, Project)
@@ -25,7 +26,7 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
   end
 
   @required ~w(name digraph project_id org_id)a
-  @optional ~w(enabled)a
+  @optional ~w(enabled metadata)a
 
   @permitted @required ++ @optional
 
