@@ -8,6 +8,29 @@ defmodule AcqdatCore.StreamLogic.Model.Helpers do
 
   Every element of the list containes a detailed information about the
   function node.
+
+  Every node has the following information
+  `display_name`, `info`, `category`, `inports`, `outports` and `properties`.
+
+  The `properties` key stores information about the keys which should be set
+  for a particular node by the user.
+  Every key in the `property` map has the following value.
+  %{
+    type:
+    default_value:
+    source: (optional)
+  }
+  This is mainly used for rendering the frontend for properties of a node.
+  The `type` keyword is used for identifying the UI element to be used for
+  rendering the key.
+  A `type` can be one of the following:
+  - `input-multiple`
+  - `input-text`
+  - `input-radio`
+  - `input-checkbox`
+  - `select`
+  - `multi-select`
+  - `js-script`
   """
   @spec components() :: [map]
   def components() do

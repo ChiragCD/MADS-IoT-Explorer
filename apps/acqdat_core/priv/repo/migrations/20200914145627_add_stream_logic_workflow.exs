@@ -12,10 +12,13 @@ defmodule AcqdatCore.Repo.Migrations.AddStreamLogicWorkflow do
       #associations
       add(:project_id, references("acqdat_projects", on_delete: :delete_all),
         null: false)
-      add(:org, references("acqdat_organisation", on_delete: :delete_all),
+      add(:org_id, references("acqdat_organisation", on_delete: :delete_all),
         null: false)
 
       timestamps(type: :timestamptz)
     end
+
+    create unique_index("acqdat_sl_workflow", [:name, :project_id],
+      name: :unique_flow_name_per_project)
   end
 end

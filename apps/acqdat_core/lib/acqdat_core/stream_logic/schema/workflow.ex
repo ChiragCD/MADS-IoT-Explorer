@@ -37,6 +37,10 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     |> validate_required(@required)
     |> assoc_constraint(:project)
     |> assoc_constraint(:org)
+    |> unique_constraint(:name,
+      name: :unique_flow_name_per_project,
+      message: "workflow with this name exists"
+    )
   end
 
   def update_changeset(%__MODULE__{}=workflow, params) do
@@ -45,6 +49,10 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     |> validate_required(@required)
     |> assoc_constraint(:project)
     |> assoc_constraint(:org)
+    |> unique_constraint(:name,
+      name: :unique_flow_name_per_project,
+      message: "workflow with this name exists"
+    )
   end
 
 end

@@ -2,8 +2,22 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
   @inports [:sms_input]
   @outports [:sms_output]
   @properties %{
-    phone_numbers: [],
-    template: ""
+     label: %{
+      type: "text",
+      default: ""
+    },
+    description: %{
+      type: "text",
+      default: ""
+    },
+    phone_numbers: %{
+     type: "input-multiple",
+     default: []
+    },
+    template: %{
+      type: "string",
+      default: ""
+    }
   }
   @category :action
   @display_name "SMS"

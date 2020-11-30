@@ -2,8 +2,22 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.Email do
   @inports [:email_input]
   @outports [:email_output]
   @properties %{
-    email_addresses: [],
-    template: ""
+     label: %{
+      type: "text",
+      default: ""
+    },
+    description: %{
+      type: "text",
+      default: ""
+    },
+    email_addresses: %{
+     type: "input-multiple",
+     default: []
+    },
+    template: %{
+      type: "string",
+      default: ""
+    }
   }
   @category :action
   @display_name "Email"

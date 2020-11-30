@@ -3,7 +3,19 @@ defmodule AcqdatCore.StreamLogic.Functions.ActionNodes.CreateAlarm do
   @inports [:input]
   @outports [:true, :false]
   @properties %{
-    message_types: ["raw_telemetry", "structured_telemetry"]
+    label: %{
+      type: "text",
+      default: ""
+    },
+    description: %{
+      type: "text",
+      default: ""
+    },
+    message_types: %{
+      type: "select",
+      source: ["raw_telemetry", "structured_telemetry"],
+      default: ""
+    }
   }
   @category :action
   @display_name "Message Type Filter"

@@ -1,8 +1,11 @@
 defmodule AcqdatCore.Support.Factory do
+  # please don't change the use order, the macro logic depends on previous use
+  # and it can lead to bugs.
   use ExMachina.Ecto, repo: AcqdatCore.Repo
   use AcqdatCore.Schema
   use AcqdatCore.Factory.Hierarchy
   use AcqdatCore.Factory.Alerts
+  use AcqdatCore.Factory.Workflow
 
   alias AcqdatApiWeb.Guardian
   import Plug.Conn
