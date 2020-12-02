@@ -3,10 +3,11 @@ defmodule AcqdatCore.StreamLogic.Schema.WorkflowTest do
   use AcqdatCore.DataCase
   import AcqdatCore.Support.Factory
   alias AcqdatCore.StreamLogic.Schema.Workflow
+  alias AcqdatCore.StreamLogic.Schema.WorkflowGraph
 
   @params %{
     name: "Workflow1",
-    digraph: %{},
+    digraph: %{edge_list: [], vertices: []},
     enabled: true,
     metadata: %{}
   }
@@ -29,7 +30,6 @@ defmodule AcqdatCore.StreamLogic.Schema.WorkflowTest do
       %{valid?: validity} = changeset = Workflow.changeset(%Workflow{}, %{})
       refute validity
       assert %{
-        digraph: ["can't be blank"],
         name: ["can't be blank"],
         org_id: ["can't be blank"],
         project_id: ["can't be blank"]
@@ -48,16 +48,28 @@ defmodule AcqdatCore.StreamLogic.Schema.WorkflowTest do
 
     test "returns invalid if name not unique", %{project: project} do
       workflow = insert(:workflow, %{project: project, org: project.org})
-      changeset = @params
-        params = @params
+
+      params = @params
         |> Map.put(:project_id, project.id)
         |> Map.put(:org_id, project.org_id)
         |> Map.put(:name, workflow.name)
+
       changeset = Workflow.changeset(%Workflow{}, params)
       assert {:error, changeset} = Repo.insert(changeset)
       assert errors_on(changeset) == %{name: ["workflow with this name exists"]}
     end
 
+    test "test with graph nodes", %{project: project} do
+      digraph = create_digraph()
+      params = @params
+        |> Map.put(:project_id, project.id)
+        |> Map.put(:org_id, project.org_id)
+        |> Map.put(:digraph, digraph)
+
+      %{valid?: validity} = changeset = Workflow.changeset(%Workflow{}, params)
+      assert validity
+      assert {:ok, _workflow} = Repo.insert(changeset)
+    end
   end
 
   describe "update_changeset/1 " do

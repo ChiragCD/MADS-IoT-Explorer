@@ -8,15 +8,18 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
 
   use AcqdatCore.Schema
   alias AcqdatCore.Schema.EntityManagement.{Project, Organisation}
+  alias AcqdatCore.StreamLogic.Schema.Workflowgraph
 
   @type t :: %__MODULE__{}
 
   schema("acqdat_sl_workflow") do
     field(:name, :string, null: false)
-    field(:digraph, :map, null: false)
     field(:uuid, :string, null: false)
     field(:enabled, :boolean, default: true)
     field(:metadata, :map, default: %{})
+
+    #embeds
+    embeds_one(:digraph, Workflowgraph)
 
     #associations
     belongs_to(:project, Project)
@@ -25,7 +28,7 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     timestamps(type: :utc_datetime)
   end
 
-  @required ~w(name digraph project_id org_id)a
+  @required ~w(name project_id org_id)a
   @optional ~w(enabled metadata)a
 
   @permitted @required ++ @optional
@@ -35,6 +38,7 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     |> cast(params, @permitted)
     |> add_uuid()
     |> validate_required(@required)
+    |> cast_embed(:digraph)
     |> assoc_constraint(:project)
     |> assoc_constraint(:org)
     |> unique_constraint(:name,
@@ -55,4 +59,63 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     )
   end
 
+end
+
+defmodule AcqdatCore.StreamLogic.Schema.Workflowgraph do
+  use AcqdatCore.Schema
+  alias AcqdatCore.StreamLogic.Schema.Edge
+  alias AcqdatCore.StreamLogic.Schema.Vertex
+
+  embedded_schema() do
+    embeds_many(:edge_list, Edge)
+    embeds_many(:vertices, Vertex)
+  end
+
+  def changeset(%__MODULE__{} = data, params) do
+    data
+    |> cast(params, [])
+    |> cast_embed(:edge_list)
+    |> cast_embed(:vertices)
+  end
+end
+
+defmodule AcqdatCore.StreamLogic.Schema.Edge do
+  use AcqdatCore.Schema
+
+  embedded_schema() do
+    field(:source_id, :string)
+    field(:target_id, :string)
+    field(:label, :map)
+  end
+
+  @permitted ~w(source_id target_id label)a
+
+  def changeset(%__MODULE__{} = data, params) do
+    data
+    |> cast(params, @permitted)
+    |> validate_required(@permitted)
+  end
+end
+
+
+defmodule AcqdatCore.StreamLogic.Schema.Vertex do
+  use AcqdatCore.Schema
+
+  embedded_schema() do
+    field(:uuid, :string)
+    field(:label, :string)
+    field(:description, :string)
+    field(:module, StreamLogicFunctionEnum)
+    field(:configuration, :map)
+  end
+
+  @required ~w(label module uuid)a
+  @optional ~w(description configuration)a
+  @permitted @required ++ @optional
+
+  def changeset(%__MODULE__{} = data, params) do
+    data
+    |> cast(params, @permitted)
+    |> validate_required(@required)
+  end
 end
