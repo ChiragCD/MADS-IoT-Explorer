@@ -60,7 +60,6 @@ defmodule AcqdatCore.StreamLogic.Model.StreamLogicTest do
       digraph = create_digraph()
       params = %{name: "Streamify", digraph: digraph}
       assert {:ok, new_workflow} = StreamLogic.update(workflow, params)
-      import IEx; pry
       assert workflow.id == new_workflow.id
       refute workflow.name == new_workflow.name
     end
@@ -116,6 +115,18 @@ defmodule AcqdatCore.StreamLogic.Model.StreamLogicTest do
         page_number: 1,
         org_id: project.org.id,
         project_id: project.id
+      }
+      result = StreamLogic.get_all(params)
+      assert result.entries == []
+      assert result.total_entries == 0
+    end
+
+    test "returns empty for stale project" do
+      params = %{
+        page_size: 2,
+        page_number: 1,
+        org_id: -1,
+        project_id: -1
       }
       result = StreamLogic.get_all(params)
       assert result.entries == []

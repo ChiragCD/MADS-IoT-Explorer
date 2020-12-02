@@ -96,10 +96,16 @@ defmodule AcqdatApiWeb.Router do
       resources "/tasks", DataCruncher.TasksController, only: [:create, :index, :show, :delete]
     end
 
+    ## Stream Logic
     scope "/stream-logic", StreamLogic do
       get "/components", ComponentsController, :components, as: :stream_logic_component
     end
 
+    scope "/projects/:project_id/stream-logic", StreamLogic do
+      resources "/workflows", WorkflowController, except: [:edit, :new]
+    end
+
+    ## Role Management
     resources "/users", RoleManagement.UserController, only: [:show, :update, :index] do
       resources "/tasks", DataCruncher.TasksController, only: [:create, :index, :show]
       resources "/settings", RoleManagement.UserSettingController,
@@ -118,6 +124,7 @@ defmodule AcqdatApiWeb.Router do
       resources "/invitations", InvitationController, only: [:create, :update, :index, :delete]
     end
 
+    ## Entity Management
     post("/projects/:project_id/entities", EntityManagement.EntityController, :update_hierarchy)
     get("/projects/:project_id/entities", EntityManagement.EntityController, :fetch_hierarchy)
     get("/entities", EntityManagement.EntityController, :fetch_all_hierarchy)
