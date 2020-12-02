@@ -4,6 +4,7 @@ defmodule AcqdatCore.Repo.Migrations.AddStreamLogicWorkflow do
   def change do
     create table("acqdat_sl_workflow") do
       add(:name, :string, null: false)
+      add(:description, :string)
       add(:digraph, :map, null: false)
       add(:uuid, :string, null: false)
       add(:enabled, :boolean, default: true)
@@ -20,5 +21,6 @@ defmodule AcqdatCore.Repo.Migrations.AddStreamLogicWorkflow do
 
     create unique_index("acqdat_sl_workflow", [:name, :project_id],
       name: :unique_flow_name_per_project)
+    create unique_index("acqdat_sl_workflow", [:uuid])
   end
 end

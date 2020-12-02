@@ -14,12 +14,13 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
 
   schema("acqdat_sl_workflow") do
     field(:name, :string, null: false)
+    field(:description, :string)
     field(:uuid, :string, null: false)
     field(:enabled, :boolean, default: true)
     field(:metadata, :map, default: %{})
 
     #embeds
-    embeds_one(:digraph, Workflowgraph)
+    embeds_one(:digraph, Workflowgraph, on_replace: :update)
 
     #associations
     belongs_to(:project, Project)
@@ -29,7 +30,7 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
   end
 
   @required ~w(name project_id org_id)a
-  @optional ~w(enabled metadata)a
+  @optional ~w(enabled metadata description)a
 
   @permitted @required ++ @optional
 
@@ -38,19 +39,19 @@ defmodule AcqdatCore.StreamLogic.Schema.Workflow do
     |> cast(params, @permitted)
     |> add_uuid()
     |> validate_required(@required)
-    |> cast_embed(:digraph)
-    |> assoc_constraint(:project)
-    |> assoc_constraint(:org)
-    |> unique_constraint(:name,
-      name: :unique_flow_name_per_project,
-      message: "workflow with this name exists"
-    )
+    |> common()
   end
 
   def update_changeset(%__MODULE__{}=workflow, params) do
     workflow
     |> cast(params, @permitted)
     |> validate_required(@required)
+    |> common()
+  end
+
+  defp common(changeset) do
+    changeset
+    |> cast_embed(:digraph)
     |> assoc_constraint(:project)
     |> assoc_constraint(:org)
     |> unique_constraint(:name,

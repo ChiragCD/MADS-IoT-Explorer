@@ -14,6 +14,7 @@ defmodule AcqdatCore.Factory.Workflow do
       def workflow_factory() do
         %Workflow{
           name: sequence(:sl_workflow_name, &"workflow#{&1}"),
+          description: "",
           digraph: build(:digraph),
           project: build(:project),
           org: build(:project),
