@@ -1,7 +1,7 @@
 defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.TransformScript do
   @inports [:input]
   @outports [:script_output]
-  @properties %{
+  @properties [
      label: %{
       type: "text",
       default: ""
@@ -14,7 +14,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.TransformScript do
       type: "jsscript",
       default: "return {message_type: '', message_payload: '', metadata: ''}"
     }
-  }
+  ]
   @category :action
   @display_name "Transform Script"
   @info """

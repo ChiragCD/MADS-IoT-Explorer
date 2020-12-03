@@ -2,13 +2,13 @@ defmodule AcqdatCore.StreamLogic.Functions.ActionNodes.CreateAlarm do
 
   @inports [:input]
   @outports [:true, :false]
-  @properties %{
+  @properties [
     label: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     description: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     message_types: %{
@@ -16,14 +16,14 @@ defmodule AcqdatCore.StreamLogic.Functions.ActionNodes.CreateAlarm do
       source: ["raw_telemetry", "structured_telemetry"],
       default: ""
     }
-  }
+  ]
   @category :action
   @display_name "Message Type Filter"
   @info """
   The nodes checks the `message_type` of the incoming message and verifies it
   with the configuration saved for the node. If the `message_type` matches one
   of the types configured then the message is passed on through the true path, else
-  the false path is used. Their are multiple message types.
+  the false path is used. There are multiple message types.
 
   The incoming data has the following structure.
   {message_type: '', message_payload: '', metadata: ''}

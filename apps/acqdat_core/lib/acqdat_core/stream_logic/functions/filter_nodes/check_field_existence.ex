@@ -1,11 +1,28 @@
 defmodule AcqdatCore.StreamLogic.Functions.FilterNode.CheckFieldExistence do
   @inports [:input]
   @outports [:true, :false]
-  @properties %{
-    message_payload: [],
-    metadata: [],
-    check_all_fields: false
-  }
+  @properties [
+    label: %{
+      type: "input-text",
+      default: ""
+    },
+    description: %{
+      type: "input-text",
+      default: ""
+    },
+    message_payload: %{
+      type: "input-multiple",
+      default: []
+    },
+    metadata: %{
+      type: "input-multiple",
+      default: []
+    },
+    check_all_fields: %{
+      type: "input-boolean",
+      default: false
+    }
+  ]
   @category :filter
   @display_name "Check Field Existence"
   @info """

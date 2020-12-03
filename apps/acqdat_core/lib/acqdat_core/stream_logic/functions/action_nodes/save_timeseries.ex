@@ -1,16 +1,16 @@
 defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SaveTimeSeries do
   @inports [:input]
   @outports [:timeseries_output]
-  @properties %{
+  @properties [
      label: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     description: %{
-      type: "text",
+      type: "input-text",
       default: ""
     }
-  }
+  ]
   @category :action
   @display_name "Save Timeseries"
   @info """

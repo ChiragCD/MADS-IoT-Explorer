@@ -1,7 +1,7 @@
 defmodule AcqdatCore.StreamLogic.Functions.FilterNode.MessageTypeRoute do
   @inports [:input]
   @outports [:raw_telemetry, :structured_telemetry]
-  @properties %{}
+  @properties []
   @category :filter
   @display_name "Message Type Filter"
   @info """

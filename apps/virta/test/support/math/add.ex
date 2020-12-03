@@ -1,7 +1,7 @@
 defmodule Virta.Math.Add do
   @inports [:addend, :augend]
   @outports [:sum]
-  @properties %{}
+  @properties []
   @category :test
   @info "Adds two real numbers"
   @display_name "Add"

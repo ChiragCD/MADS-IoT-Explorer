@@ -94,7 +94,7 @@ defmodule Virta.Core.Workflow do
   """
   @inports []
   @outports []
-  @properties %{}
+  @properties []
   @category :default
   @info "Used for invoking different workflow"
   @display_name "Workflow"

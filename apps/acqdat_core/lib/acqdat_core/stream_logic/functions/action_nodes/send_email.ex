@@ -1,13 +1,13 @@
 defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.Email do
   @inports [:email_input]
   @outports [:email_output]
-  @properties %{
+  @properties [
      label: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     description: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     email_addresses: %{
@@ -18,7 +18,8 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.Email do
       type: "string",
       default: ""
     }
-  }
+  ]
+
   @category :action
   @display_name "Email"
   @info """

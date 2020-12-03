@@ -1,12 +1,24 @@
 defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityTelemetryAttributes do
   @inports [:input]
   @outports [:success, :failure]
-  @properties %{
-    entity: "",
-    entity_param: "",
-    all_similar_type_allow: [true, false],
-    fetch_mode: ["first", "last", "all"]
-  }
+  @properties [
+    entity_param: %{
+      type: "input-multiple",
+      default: []
+    },
+    all_similar_type_allow: %{
+      type: "input-boolean",
+      default: true,
+    },
+    fetch_mode: %{
+      type: "select",
+      source: ["first", "last", "all"]
+    },
+    entity: %{
+      type: "select",
+      source: ["gateway", "sensor"]
+    },
+  ]
   @category :enrichment
   @display_name "Entity Telemetry"
   @info """

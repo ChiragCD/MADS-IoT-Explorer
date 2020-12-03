@@ -9,7 +9,7 @@ defmodule Virta.Core.Out do
 
   @inports []
   @outports []
-  @properties %{}
+  @properties []
   @category :default
   @info "Serves as output collection for a workflow"
   @display_name "In"

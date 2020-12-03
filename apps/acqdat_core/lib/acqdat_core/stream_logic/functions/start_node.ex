@@ -5,7 +5,7 @@ defmodule AcqdatCore.StreamLogic.Functions.StartNode do
 
   @inports [:std_in]
   @outports [:std_out]
-  @properties %{}
+  @properties []
   @category :input
   @display_name "Input"
   @info """

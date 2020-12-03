@@ -10,7 +10,7 @@ defmodule Virta.Core.In do
 
   @inports []
   @outports []
-  @properties %{}
+  @properties []
   @category :default
   @info "Used internally for workflow port discovery"
   @display_name "In"

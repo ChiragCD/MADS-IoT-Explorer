@@ -11,11 +11,18 @@ defmodule AcqdatApiWeb.StreamLogic.ComponentsView do
     %{
       inports: component.inports,
       outports: component.outports,
-      properties: component.properties,
+      properties: parse_properties(component.properties),
       category: component.category,
       info: component.info,
       display_name: component.display_name,
       module: component.module
     }
+  end
+
+  defp parse_properties(list) do
+    list
+    |> Enum.map(fn {key, value} ->
+      Map.put(value, :key, key)
+    end)
   end
 end

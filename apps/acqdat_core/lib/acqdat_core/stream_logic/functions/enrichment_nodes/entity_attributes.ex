@@ -1,8 +1,7 @@
 defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityAttributes do
   @inports [:input]
   @outports [:success, :failure]
-  @properties %{
-  }
+  @properties []
   @category :enrichment
   @display_name "Entity Attributes"
   @info """

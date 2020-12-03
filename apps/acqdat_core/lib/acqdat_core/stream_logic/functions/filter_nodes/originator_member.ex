@@ -1,10 +1,16 @@
 defmodule AcqdatCore.StreamLogic.Functions.FilterNode.OriginatorMember do
   @inports [:input]
   @outports [:true, :false]
-  @properties %{
-    members: %{},
-    originator_types: ~w(Gateway Sensor Asset Project AssetType SensorType)a
-  }
+  @properties [
+    originator_types: %{
+      type: "select",
+      source: ~w(Gateway Sensor Asset Project AssetType SensorType)s
+    },
+    members: %{
+      type: "select",
+      source: ""
+    }
+  ]
   @category :filter
   @display_name "Originator Member Filter"
   @info """

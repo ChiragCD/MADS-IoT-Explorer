@@ -7,9 +7,12 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
   """
   @inports [:input]
   @outports [:true, :false]
-  @properties %{
-    script: "return message_payload.temperature > 20"
-  }
+  @properties [
+    script: %{
+      type: "jsscript",
+      default: "return message_payload.temperature > 20"
+    }
+  ]
   @category :filter
   @display_name "Script"
   @info """

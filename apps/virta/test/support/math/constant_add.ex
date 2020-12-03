@@ -1,9 +1,12 @@
 defmodule Virta.Math.ConstantAdd do
   @inports [:addend, :augend]
   @outports [:sum]
-  @properties %{
-    constant: 0
-  }
+  @properties [
+    constant: %{
+      type: "integer",
+      default: 0
+    }
+  ]
 
   @category :test
   @info "Adds two real numbers and add the constant to the result"

@@ -1,13 +1,13 @@
 defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
   @inports [:sms_input]
   @outports [:sms_output]
-  @properties %{
+  @properties [
      label: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     description: %{
-      type: "text",
+      type: "input-text",
       default: ""
     },
     phone_numbers: %{
@@ -18,7 +18,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
       type: "string",
       default: ""
     }
-  }
+  ]
   @category :action
   @display_name "SMS"
   @info """

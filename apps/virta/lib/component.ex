@@ -215,9 +215,9 @@ defmodule Virta.Component do
   @callback display_name() :: String.t()
 
   @doc """
-  Returns all the properties of a component in a map.
+  Returns all the properties of a component in a list of maps.
   """
-  @callback component_properties() :: map()
+  @callback component_properties() :: [map()]
 
 
   defmacro __using__(_) do
