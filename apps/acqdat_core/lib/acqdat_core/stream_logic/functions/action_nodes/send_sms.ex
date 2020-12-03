@@ -15,7 +15,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
      default: []
     },
     template: %{
-      type: "string",
+      type: "input-text",
       default: ""
     }
   ]

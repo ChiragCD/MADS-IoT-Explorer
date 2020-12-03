@@ -65,7 +65,6 @@ defmodule AcqdatApiWeb.StreamLogic.WorkflowControllerTest do
       conn = post(conn, Routes.workflow_path(conn, :create, org.id, project.id),
         params)
       result = conn |> json_response(200)
-
       assert result["name"] == params.name
       assert Map.has_key?(result, "id")
       assert Map.has_key?(result, "digraph")

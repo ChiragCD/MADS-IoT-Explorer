@@ -31,6 +31,7 @@ defmodule AcqdatCore.StreamLogic.Model.Helpers do
   - `select`
   - `multi-select`
   - `js-script`
+  - `html-input`
   """
   @spec components() :: [map]
   def components() do

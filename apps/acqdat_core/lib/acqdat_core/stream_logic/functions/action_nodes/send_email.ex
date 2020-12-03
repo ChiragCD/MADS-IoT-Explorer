@@ -15,7 +15,7 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.Email do
      default: []
     },
     template: %{
-      type: "string",
+      type: "html-input",
       default: ""
     }
   ]
