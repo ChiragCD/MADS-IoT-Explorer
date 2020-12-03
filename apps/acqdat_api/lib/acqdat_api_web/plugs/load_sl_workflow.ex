@@ -13,11 +13,13 @@ defmodule AcqdatApiWeb.Plug.LoadStreamLogicWorkflow do
 
           {:error, _message} ->
             conn
+            |> assign(:error_message, "workflow not found")
             |> put_status(404)
         end
 
       :error ->
         conn
+        |> assign(:error_message, "workflow not found")
         |> put_status(404)
     end
   end

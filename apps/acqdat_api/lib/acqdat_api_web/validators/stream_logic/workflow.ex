@@ -10,4 +10,16 @@ defmodule AcqdatApiWeb.Validators.StreamLogic.Workflow do
       project_id!: :integer
     })
   )
+
+  defparams(
+    verify_create_params(%{
+      name!: :string,
+      digraph!: :map,
+      enabled: :boolean,
+      description: :string,
+      metadata: :map,
+      project_id: :integer,
+      org_id: :integer
+    })
+  )
 end
