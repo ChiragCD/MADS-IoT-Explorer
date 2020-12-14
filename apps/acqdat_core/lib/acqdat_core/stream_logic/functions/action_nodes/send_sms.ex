@@ -4,7 +4,8 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
   @properties [
      label: %{
       type: "input-text",
-      default: ""
+      default: "",
+      required: true
     },
     description: %{
       type: "input-text",
@@ -12,7 +13,8 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SMS do
     },
     phone_numbers: %{
      type: "input-multiple",
-     default: []
+     default: [],
+     required: true
     },
     template: %{
       type: "input-text",

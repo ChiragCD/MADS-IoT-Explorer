@@ -4,7 +4,8 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.CheckFieldExistence do
   @properties [
     label: %{
       type: "input-text",
-      default: ""
+      default: "",
+      required: true
     },
     description: %{
       type: "input-text",
@@ -12,11 +13,13 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.CheckFieldExistence do
     },
     message_payload: %{
       type: "input-multiple",
-      default: []
+      default: [],
+      required: true
     },
     metadata: %{
       type: "input-multiple",
-      default: []
+      default: [],
+      required: true
     },
     check_all_fields: %{
       type: "input-boolean",

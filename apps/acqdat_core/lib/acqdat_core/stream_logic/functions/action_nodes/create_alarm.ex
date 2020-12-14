@@ -5,7 +5,8 @@ defmodule AcqdatCore.StreamLogic.Functions.ActionNodes.CreateAlarm do
   @properties [
     label: %{
       type: "input-text",
-      default: ""
+      default: "",
+      required: true
     },
     description: %{
       type: "input-text",
@@ -14,7 +15,8 @@ defmodule AcqdatCore.StreamLogic.Functions.ActionNodes.CreateAlarm do
     message_types: %{
       type: "select",
       source: ["raw_telemetry", "structured_telemetry"],
-      default: ""
+      default: "",
+      required: true
     }
   ]
   @category :action

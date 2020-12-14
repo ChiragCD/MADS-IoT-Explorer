@@ -8,9 +8,19 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.Script do
   @inports [:input]
   @outports [:true, :false]
   @properties [
+    label: %{
+      type: "input-text",
+      default: "",
+      required: true
+    },
+    description: %{
+      type: "input-text",
+      default: ""
+    },
     script: %{
       type: "jsscript",
-      default: "return message_payload.temperature > 20"
+      default: "return message_payload.temperature > 20",
+      required: true
     }
   ]
   @category :filter

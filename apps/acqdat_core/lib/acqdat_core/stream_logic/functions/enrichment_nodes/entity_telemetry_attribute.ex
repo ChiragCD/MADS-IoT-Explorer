@@ -4,7 +4,8 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityTelemetryAttribute
   @properties [
     entity_param: %{
       type: "input-multiple",
-      default: []
+      default: [],
+      required: true
     },
     all_similar_type_allow: %{
       type: "input-boolean",
@@ -12,11 +13,13 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.EntityTelemetryAttribute
     },
     fetch_mode: %{
       type: "select",
-      source: ["first", "last", "all"]
+      source: ["first", "last", "all"],
+      default: "all"
     },
     entity: %{
       type: "select",
-      source: ["gateway", "sensor"]
+      source: ["gateway", "sensor"],
+      required: true
     },
   ]
   @category :enrichment

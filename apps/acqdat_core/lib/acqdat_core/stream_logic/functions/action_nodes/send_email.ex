@@ -4,15 +4,17 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.Email do
   @properties [
      label: %{
       type: "input-text",
-      default: ""
+      default: "",
+      required: true
     },
     description: %{
       type: "input-text",
       default: ""
     },
     email_addresses: %{
-     type: "input-multiple",
-     default: []
+      type: "input-multiple",
+      default: [],
+      required: true
     },
     template: %{
       type: "html-input",

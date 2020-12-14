@@ -2,9 +2,19 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.OriginatorTypeFilter do
   @inports [:input]
   @outports [:true, :false]
   @properties [
+    label: %{
+      type: "input-text",
+      default: "",
+      required: true
+    },
+    description: %{
+      type: "input-text",
+      default: ""
+    },
     message_types: %{
       type: "select",
-      source: ["gateway", "sensor"]
+      source: ["gateway", "sensor"],
+      required: true
     }
   ]
   @category :filter

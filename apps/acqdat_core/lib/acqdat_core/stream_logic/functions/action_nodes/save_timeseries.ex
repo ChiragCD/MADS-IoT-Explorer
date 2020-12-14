@@ -4,7 +4,8 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.SaveTimeSeries do
   @properties [
      label: %{
       type: "input-text",
-      default: ""
+      default: "",
+      required: true
     },
     description: %{
       type: "input-text",

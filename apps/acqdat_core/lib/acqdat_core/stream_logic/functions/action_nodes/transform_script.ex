@@ -4,7 +4,8 @@ defmodule AcqdataCore.StreamLogic.Functions.ActionNodes.TransformScript do
   @properties [
      label: %{
       type: "text",
-      default: ""
+      default: "",
+      required: true
     },
     description: %{
       type: "text",

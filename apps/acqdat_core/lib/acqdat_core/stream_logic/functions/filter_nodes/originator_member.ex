@@ -2,6 +2,15 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.OriginatorMember do
   @inports [:input]
   @outports [:true, :false]
   @properties [
+    label: %{
+      type: "input-text",
+      default: "",
+      required: true
+    },
+    description: %{
+      type: "input-text",
+      default: ""
+    },
     originator_types: %{
       type: "select",
       source: ~w(Gateway Sensor Asset Project AssetType SensorType)s
@@ -15,7 +24,7 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.OriginatorMember do
   @display_name "Originator Member Filter"
   @info """
   The node checks if the incoming message originator id is present in the configuration
-  set for the node. A originator can be of the following types:
+  set for the node. An originator can be of the following types:
   - `Gateway`
   - `Sensor`
   - `Asset`

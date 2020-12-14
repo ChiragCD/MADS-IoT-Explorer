@@ -2,9 +2,19 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.MessageTypeFilter do
   @inports [:input]
   @outports [:true, :false]
   @properties [
+    label: %{
+      type: "input-text",
+      default: "",
+      required: true
+    },
+    description: %{
+      type: "input-text",
+      default: ""
+    },
     message_types: %{
       type: "select",
-      source: ["raw_telemetry", "structured_telemetry"]
+      source: ["raw_telemetry", "structured_telemetry"],
+      required: true
     }
   ]
   @category :filter
