@@ -17,8 +17,8 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.OriginatorMember do
       dependent: nil
     },
     originator_members: %{
-      type: "select",
-      source: "/org/{org_id}/project/{project_id}/entity_list?entity={entity_type}",
+      type: "multi-select",
+      source: "/org/${org_id}/project/${project_id}/entity_list?entity=${entity_type}",
       dependent: "originator_types"
     }
   ]
