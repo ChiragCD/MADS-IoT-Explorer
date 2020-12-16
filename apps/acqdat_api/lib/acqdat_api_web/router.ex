@@ -158,6 +158,7 @@ defmodule AcqdatApiWeb.Router do
     end
 
     scope "/projects/:project_id", EntityManagement do
+      get "/entity_list", ProjectController, :entity_list
       resources "/asset_types", AssetTypeController, only: [:create, :update, :delete, :index]
 
       resources "/assets", AssetController,

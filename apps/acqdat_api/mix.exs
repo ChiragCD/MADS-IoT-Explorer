@@ -59,6 +59,8 @@ defmodule AcqdatApi.MixProject do
       # sentry logging
       {:sentry, "~> 7.0"},
       {:hackney, "~> 1.8"},
+
+      {:poison, "~> 3.1", override: true}
     ]
   end
 end

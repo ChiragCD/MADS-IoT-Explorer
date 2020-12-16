@@ -71,7 +71,9 @@ defmodule AcqdatUmbrella.MixProject do
       {:gen_retry, "~> 1.2.0"},
 
       # testing
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+
+      {:poison, "~> 3.1", override: true}
     ]
   end
 

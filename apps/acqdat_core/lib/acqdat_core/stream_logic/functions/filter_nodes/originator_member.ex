@@ -13,12 +13,12 @@ defmodule AcqdatCore.StreamLogic.Functions.FilterNode.OriginatorMember do
     },
     originator_types: %{
       type: "select",
-      source: ~w(Gateway Sensor Asset AssetType SensorType)s,
+      source: ~w(gateway sensor asset asset_type sensor_type)s,
       dependent: nil
     },
     originator_members: %{
       type: "select",
-      source: "",
+      source: "/org/{org_id}/project/{project_id}/entity_list?entity={entity_type}",
       dependent: "originator_types"
     }
   ]
