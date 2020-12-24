@@ -7,10 +7,13 @@ defmodule AcqdatCore.StreamLogic.Model do
 
   The function also registers a workflow while creating it. Only the registered
   workflows are executed.
+  Each workflow also registers itselfs as a consumer(subscriber) to the project
+  specific telemetry topic. The topics and data are stored in Kafka.
   """
   def create(params) do
     changeset = Workflow.changeset(%Workflow{}, params)
     #add code for registering the workflow
+    #subscribe to specific project telemetry topic
     Repo.insert(changeset)
   end
 
@@ -19,10 +22,14 @@ defmodule AcqdatCore.StreamLogic.Model do
 
   ## Note
   In case the workflow digraph or the name is updated it will be re-registered.
+  In case the worklow enabled is changed to false, the workflow would be
+  de-registered and it's subscription from the queue will also be removed.
   """
   def update(workflow, params) do
     changeset = Workflow.update_changeset(workflow, params)
     # add code for updating the registered workflow
+    # add code for checking the registration status
+    # add code for handling the subscription
     Repo.update(changeset)
   end
 

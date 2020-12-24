@@ -7,10 +7,23 @@ defmodule AcqdatCore.Model.EntityManagement.Project do
   alias AcqdatCore.Model.EntityManagement.Sensor, as: SensorModel
   alias AcqdatCore.Model.Helper, as: ModelHelper
   alias AcqdatCore.Repo
+  alias Ecto.Multi
 
   def create(params) do
     changeset = Project.changeset(%Project{}, params)
-    Repo.insert(changeset)
+
+    Multi.new()
+    |> Multi.run(:create_telemetry_topic, fn ->
+      create_project_telemetry_topic(params)
+    end)
+    |> Multi.insert(:insert_project, changeset)
+    |> Repo.transaction()
+    |> case do
+      {:error, _failed_operation, failed_value, _changes} ->
+        {:error, failed_value}
+      {:ok, %{insert_project: project}} ->
+        {:ok, project}
+    end
   end
 
   def hierarchy_data(org_id, project_id) do
@@ -149,5 +162,10 @@ defmodule AcqdatCore.Model.EntityManagement.Project do
       {:error, project} ->
         {:error, project}
     end
+  end
+
+  ####################### private functions ###########################
+  def create_project_telemetry_topic(_project) do
+    {:ok, "added"}
   end
 end
