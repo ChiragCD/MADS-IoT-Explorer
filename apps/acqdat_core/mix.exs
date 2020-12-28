@@ -47,7 +47,7 @@ defmodule AcqdatCore.MixProject do
       {:ecto_sql, "~> 3.2.0"},
       {:postgrex, ">= 0.0.0"},
       {:jason, "~> 1.0"},
-      {:poison, "~> 4.0", override: true},
+      {:poison, "~> 3.1", override: true},
 
       # auth
       {:comeonin, "~> 4.1.1"},

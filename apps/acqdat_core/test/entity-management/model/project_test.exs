@@ -6,6 +6,18 @@ defmodule AcqdatCore.Model.EntityManagement.ProjectTest do
 
   alias AcqdatCore.Model.EntityManagement.Project
 
+
+  describe "create/1 " do
+    setup do
+      [org: insert(:organisation)]
+    end
+
+    test "creates a project with topic", %{org: org} do
+      project_name = params_for(:project, org: org)
+
+    end
+  end
+
   describe "get_by_id/1" do
     test "returns a particular project" do
       proj = insert(:project)
