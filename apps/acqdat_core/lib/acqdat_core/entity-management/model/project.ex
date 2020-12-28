@@ -7,12 +7,14 @@ defmodule AcqdatCore.Model.EntityManagement.Project do
   alias AcqdatCore.Model.Helper, as: ModelHelper
   alias AcqdatCore.Repo
   alias Ecto.Multi
+  alias AcqdatCore.Ntools.Kafka
+  alias AcqdatCore.Ntools.Kafka.Topic
 
   def create(params) do
     changeset = Project.changeset(%Project{}, params)
 
     Multi.new()
-    |> Multi.run(:create_telemetry_topic, fn ->
+    |> Multi.run(:create_telemetry_topic, fn _repo, _params ->
       create_project_telemetry_topic(params)
     end)
     |> Multi.insert(:insert_project, changeset)
@@ -164,7 +166,12 @@ defmodule AcqdatCore.Model.EntityManagement.Project do
   end
 
   ####################### private functions ###########################
-  def create_project_telemetry_topic(_project) do
-    {:ok, "added"}
+  def create_project_telemetry_topic(project) do
+    topic = %Topic{
+      topic_name: "project-#{project.uuid}-telemetry",
+      num_partitions: 1,
+      replication_factor: 3
+    }
+    Kafka.create_topics([topic])
   end
 end
