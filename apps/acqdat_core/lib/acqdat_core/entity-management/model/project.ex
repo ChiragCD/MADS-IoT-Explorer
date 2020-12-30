@@ -152,11 +152,18 @@ defmodule AcqdatCore.Model.EntityManagement.Project do
     end
   end
 
+  @doc """
+  Deletes a project.
+
+  Also, deletes the topics associated with this project in kafka.
+  """
   def delete(project) do
     changeset = Project.delete_changeset(project)
 
     case Repo.delete(changeset) do
       {:ok, project} ->
+        topic = "project-#{project.uuid}-telemetry"
+        KafkaEx.delete_topics([topic])
         project = project |> Repo.preload([:leads, :users])
         {:ok, project}
 

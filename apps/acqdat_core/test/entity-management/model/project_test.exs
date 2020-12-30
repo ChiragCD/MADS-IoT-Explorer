@@ -1,20 +1,32 @@
 defmodule AcqdatCore.Model.EntityManagement.ProjectTest do
   use ExUnit.Case, async: true
   use AcqdatCore.DataCase
-
   import AcqdatCore.Support.Factory
-
   alias AcqdatCore.Model.EntityManagement.Project
 
 
   describe "create/1 " do
     setup do
-      [org: insert(:organisation)]
+      org = insert(:organisation)
+      user = insert(:user, org: org)
+      [org: org, user: user]
     end
 
-    test "creates a project with topic", %{org: org} do
-      project_name = params_for(:project, org: org)
+    test "creates a project with topic", %{org: org, user: user} do
+      create_params = :project
+        |> params_for(org: org, creator: user)
+        |> Map.put(:user_ids, [])
+        |> Map.put(:lead_ids, [])
+      assert {:ok, project} = Project.create(create_params)
+      assert project.name == create_params.name
 
+      topic = "project-#{project.uuid}-telemetry"
+      result = KafkaEx.metadata(topic: topic) |> Map.from_struct()
+      assert Map.has_key?(result, :brokers)
+      assert Map.has_key?(result, :controller_id)
+
+      #remove topic from kafka
+      KafkaEx.delete_topics([topic])
     end
   end
 
