@@ -12,6 +12,8 @@ defmodule AcqdatCore.Model.EntityManagement.Project do
 
   def create(params) do
     changeset = Project.changeset(%Project{}, params)
+    # create a dynamic supervisor to monitor all the rule chains of this
+    # project
 
     Multi.new()
     |> Multi.run(:create_telemetry_topic, fn _repo, _params ->
