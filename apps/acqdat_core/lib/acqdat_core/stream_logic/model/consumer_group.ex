@@ -28,6 +28,7 @@ defmodule AcqdatCore.StreamLogic.Model.ConsumerGroup do
       [gen_consumer_impl, consumer_group_name, topic_names, consumer_group_opts]
     )
 
+    #TODO: Modify to register under a project based supervisor.
     DynamicSupervisor.start_child(
       ConsumerSupervisor,
       child_spec

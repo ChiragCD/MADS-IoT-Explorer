@@ -1,4 +1,4 @@
-defmodule AcqdatCore.StreamLogic.Model.LogicChainSupervisor do
+defmodule AcqdatCore.StreamLogic.Model.WorkflowSupervisor do
   @moduledoc """
   A dynamic supervsior to monitor logic chains for a project.
 
