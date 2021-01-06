@@ -23,12 +23,12 @@ defmodule AcqdatCore.StreamLogic.Model.ConsumerGroup do
     consumer_group_name = name
     topic_names = [topic]
 
+    #TODO: Uses old child spec, modify it to use new child spec.
     child_spec = supervisor(
       KafkaEx.ConsumerGroup,
       [gen_consumer_impl, consumer_group_name, topic_names, consumer_group_opts]
     )
 
-    #TODO: Modify to register under a project based supervisor.
     DynamicSupervisor.start_child(
       ConsumerSupervisor,
       child_spec

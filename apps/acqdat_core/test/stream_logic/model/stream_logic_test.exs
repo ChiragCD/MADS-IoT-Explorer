@@ -1,8 +1,9 @@
 defmodule AcqdatCore.StreamLogic.Model.StreamLogicTest do
   use ExUnit.Case, async: true
   use AcqdatCore.DataCase
-  alias AcqdatCore.StreamLogic.Model, as: StreamLogic
   import AcqdatCore.Support.Factory
+  alias AcqdatCore.StreamLogic.Model, as: StreamLogic
+  alias AcqdatCore.StreamLogic.ConsumerSupervisor
 
   @params %{
     name: "Workflow1",
@@ -24,6 +25,8 @@ defmodule AcqdatCore.StreamLogic.Model.StreamLogicTest do
         |> Map.put(:org_id, project.org.id)
         |> Map.put(:project_id, project.id)
       assert {:ok, workflow} = StreamLogic.create(params)
+      result = Supervisor.which_children(ConsumerSupervisor)
+      require IEx;IEx.pry
     end
 
     test "fails if name already exists", %{project: project} do

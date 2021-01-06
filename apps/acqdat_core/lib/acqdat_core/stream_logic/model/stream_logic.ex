@@ -2,6 +2,8 @@ defmodule AcqdatCore.StreamLogic.Model do
   import Ecto.Query
   alias AcqdatCore.Repo
   alias AcqdatCore.StreamLogic.Schema.Workflow
+  alias AcqdatCore.Model.EntityManagement.Project
+  alias AcqdatCore.StreamLogic.Model.ConsumerGroup
   alias Ecto.Multi
   alias Virta.Node
   alias Virta.Registry
@@ -19,8 +21,6 @@ defmodule AcqdatCore.StreamLogic.Model do
   """
   def create(params) do
     changeset = Workflow.changeset(%Workflow{}, params)
-    #add code for registering the workflow
-    #subscribe to specific project telemetry topic
     Multi.new()
     |> Multi.insert(:insert_chain, changeset)
     |> Multi.run(:register_chain, fn _repo, %{insert_chain: chain} ->
@@ -98,8 +98,8 @@ defmodule AcqdatCore.StreamLogic.Model do
     case Repo.transaction(multi) do
       {:error, _failed_operation, failed_value, _changes} ->
         {:error, failed_value}
-      {:ok, %{insert_project: project}} ->
-        {:ok, project}
+      {:ok, %{insert_chain: workflow}} ->
+        {:ok, workflow}
       end
   end
 
@@ -110,7 +110,10 @@ defmodule AcqdatCore.StreamLogic.Model do
   end
 
   defp subscribe_workflow(workflow) do
-
+    {:ok, project} = workflow.project_id |> Project.get()
+    topic = "project-#{project.uuid}-telemetry"
+    name = "workflow_consumer" <> workflow.uuid
+    ConsumerGroup.start_consumer_group(name, topic)
   end
 
   defp prepare_graph(digraph) do
