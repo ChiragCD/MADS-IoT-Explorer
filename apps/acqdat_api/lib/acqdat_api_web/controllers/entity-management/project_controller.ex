@@ -235,7 +235,7 @@ defmodule AcqdatApiWeb.EntityManagement.ProjectController do
     Project.update(project, %{"avatar" => avatar})
   end
 
-  defp upload_and_fetch_url(conn, %{"image" => image} = params, entity_id) do
+  defp upload_and_fetch_url(conn, %{"image" => image} = _params, entity_id) do
     scope = "project/#{entity_id}"
 
     with {:ok, image_name} <- Image.store({image, scope}) do
@@ -246,7 +246,7 @@ defmodule AcqdatApiWeb.EntityManagement.ProjectController do
   end
 
   defp modify_params(conn, params) do
-    params =
+    _params =
       params
       |> Map.put_new("creator_id", String.to_integer(Guardian.Plug.current_resource(conn)))
       |> parse_metadata_params()

@@ -47,12 +47,12 @@ defmodule AcqdatApi.EntityManagement.EntityParser do
     |> validate_res(project)
   end
 
-  defp validate_res(data, project) when length(data) == 0 do
+  defp validate_res(data, project) when data == [] do
     ProjectModel.update_version(project)
     {:ok, "success"}
   end
 
-  defp validate_res(data, _project) when length(data) != 0 do
+  defp validate_res(data, _project) when data != [] do
     {:error, data}
   end
 

@@ -30,6 +30,10 @@ defmodule AcqdatCore.Schema do
       defp random_string(length) do
         :crypto.strong_rand_bytes(length) |> Base.url_encode64() |> binary_part(0, length)
       end
+
+      defoverridable add_uuid: 1
+      defoverridable add_slug: 1
+      defoverridable random_string: 1
     end
   end
 end

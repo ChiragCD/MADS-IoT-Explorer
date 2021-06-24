@@ -3,10 +3,10 @@ defmodule AcqdatCore.DataCruncher.Domain.Task do
   alias AcqdatCore.DataCruncher.Domain.Workflow
   alias Virta.Core.Out
   alias Virta.{Node, EdgeData}
-  alias AcqdatCore.DataCruncher.Model.Dataloader
-  alias AcqdatCore.DataCruncher.Schema.TempOutput
-  alias AcqdatCore.DataCruncher.Token
-  alias AcqdatCore.DataCruncher.Model.TempOutput, as: TempOutputModel
+  # alias AcqdatCore.DataCruncher.Model.Dataloader
+  # alias AcqdatCore.DataCruncher.Schema.TempOutput
+  # alias AcqdatCore.DataCruncher.Token
+  # alias AcqdatCore.DataCruncher.Model.TempOutput, as: TempOutputModel
 
   def register_workflows(task) do
     task = task |> Repo.preload([:workflows])
@@ -29,7 +29,7 @@ defmodule AcqdatCore.DataCruncher.Domain.Task do
 
   ############################# private functions ###########################
 
-  defp create_graph(%{graph: graph} = workflow) do
+  defp create_graph(%{graph: graph} = _workflow) do
     edge_list =
       Enum.reduce(graph["edge_list"], [], fn edge, acc ->
         acc ++ [gen_edge(edge)]
@@ -68,7 +68,7 @@ defmodule AcqdatCore.DataCruncher.Domain.Task do
     {node_from, node_to, label: gen_edge_data(source_node, target_node)}
   end
 
-  defp gen_node(module, %{"id" => id} = graph_node) do
+  defp gen_node(module, %{"id" => id} = _graph_node) do
     %Node{module: module, id: id}
   end
 

@@ -2,7 +2,7 @@ defmodule AcqdatApiWeb.ApiAccessAuth do
   import Plug.Conn
   import Ecto.Query
   alias AcqdatCore.Repo
-  alias AcqdatApi.ExtractRoutes
+  # alias AcqdatApi.ExtractRoutes
   alias AcqdatCore.Schema.RoleManagement.{GroupUser, GroupPolicy, UserPolicy}
   alias AcqdatCore.Model.RoleManagement.User
 

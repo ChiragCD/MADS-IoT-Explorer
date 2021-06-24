@@ -1,6 +1,6 @@
 defmodule AcqdatCore.Model.DataInsights.FactTables do
   alias AcqdatCore.DataInsights.Schema.FactTables
-  alias AcqdatCore.Model.Helper, as: ModelHelper
+  # alias AcqdatCore.Model.Helper, as: ModelHelper
   alias AcqdatCore.Repo
   import Ecto.Query
 
@@ -26,7 +26,7 @@ defmodule AcqdatCore.Model.DataInsights.FactTables do
 
     columns = Ecto.Adapters.SQL.query!(Repo, query, [], timeout: :infinity)
 
-    columns = columns.rows |> Enum.map(fn [a, b] -> %{"#{a}" => b} end)
+    _columns = columns.rows |> Enum.map(fn [a, b] -> %{"#{a}" => b} end)
   end
 
   def get_by_id(id) do

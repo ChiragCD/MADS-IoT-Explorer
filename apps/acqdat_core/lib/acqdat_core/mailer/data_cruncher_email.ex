@@ -6,7 +6,8 @@ defmodule AcqdatCore.Mailer.DataCruncherEmail do
   @to_address "bandana@stack-avenue.com"
   @from_address "bandanapandey11@gmail.com"
 
-  def email(current_user, data_set) do
+  def email(_current_user, _data_set) do
+    # TODO: Correct from and to addresses to general user address
     apps_path = Application.app_dir(:acqdat_core, "priv/repo/mads_apps.csv")
 
     new_email()

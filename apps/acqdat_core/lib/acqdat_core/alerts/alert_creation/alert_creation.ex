@@ -22,9 +22,9 @@ defmodule AcqdatCore.Alerts.AlertCreation do
 
   alias AcqdatCore.Alerts.Model.AlertRules
   alias AcqdatCore.Alerts.Model.Alert
-  alias AcqdatCore.Mailer.AlertNotification
-  alias AcqdatCore.Mailer
-  alias AcqdatCore.Model.RoleManagement.User
+  # alias AcqdatCore.Mailer.AlertNotification
+  # alias AcqdatCore.Mailer
+  # alias AcqdatCore.Model.RoleManagement.User
   alias AcqdatCore.Alerts.Server
   alias Notifications
 

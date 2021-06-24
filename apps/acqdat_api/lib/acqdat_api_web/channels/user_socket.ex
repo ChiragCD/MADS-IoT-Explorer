@@ -36,7 +36,7 @@ defmodule AcqdatApiWeb.UserSocket do
 
         {:ok, socket}
 
-      {:error, reason} ->
+      {:error, _reason} ->
         :error
     end
   end

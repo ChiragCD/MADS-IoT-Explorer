@@ -185,7 +185,7 @@ defmodule AcqdatApi.DashboardManagement.WidgetInstance do
     }
   end
 
-  defp parse_filtered_params(%{panel: panel}) do
+  defp parse_filtered_params(%{panel: _panel}) do
     %{
       from_date: Timex.shift(Timex.now(), months: -1),
       to_date: Timex.now(),

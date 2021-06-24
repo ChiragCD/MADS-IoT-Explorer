@@ -53,7 +53,7 @@ defmodule AcqdatApi.IotManager.Gateway do
 
   defp return_uuid_and_parameter_name(
          key,
-         %{"type" => "object", "value" => value} = object_value,
+         %{"type" => "object", "value" => value} = _object_value,
          acc
        ) do
     Enum.reduce(value, acc, fn {inside_key, value}, rcc ->
@@ -65,7 +65,7 @@ defmodule AcqdatApi.IotManager.Gateway do
 
   defp return_uuid_and_parameter_name(
          key,
-         %{"type" => "list", "value" => value} = list_value,
+         %{"type" => "list", "value" => value} = _list_value,
          acc
        ) do
     Enum.reduce(value, acc, fn value, rcc ->

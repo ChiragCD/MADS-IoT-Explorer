@@ -2,7 +2,7 @@ defmodule AcqdatApiWeb.RoleManagement.UserController do
   use AcqdatApiWeb, :authorized_controller
   alias AcqdatApi.RoleManagement.User
   alias AcqdatCore.ElasticSearch
-  alias AcqdatApi.Image
+  # alias AcqdatApi.Image
   alias AcqdatApiWeb.RoleManagement.UserErrorHelper
   import AcqdatApiWeb.Helpers
   import AcqdatApiWeb.Validators.RoleManagement.User
@@ -24,7 +24,7 @@ defmodule AcqdatApiWeb.RoleManagement.UserController do
           |> put_status(200)
           |> render("user_details.json", %{user_details: user})
         else
-          {:show, {:error, message}} ->
+          {:show, {:error, _message}} ->
             conn
             |> send_error(400, UserErrorHelper.error_message(:resource_not_found))
         end

@@ -8,7 +8,7 @@ defmodule AcqdatCore.Seed.Helpers.WidgetHelpers do
   import Tirexs.HTTP
   import Ecto.Query
 
-  @non_value_types ~w(object list)a
+  # @non_value_types ~w(object list)a
 
   def find_or_create_widget_type(widget_name) do
     query = from(widget_type in WidgetType,

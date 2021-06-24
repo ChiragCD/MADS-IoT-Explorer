@@ -21,7 +21,7 @@ defmodule AcqdatApiWeb.AuthController do
       {:extract, {:error, error}} ->
         send_error(conn, 400, error)
 
-      {:login, {:error, message}} ->
+      {:login, {:error, _message}} ->
         send_error(conn, 401, AuthErrorHelper.error_message(:unauthorized))
     end
   end
@@ -117,7 +117,7 @@ defmodule AcqdatApiWeb.AuthController do
         error = extract_changeset_error(error)
         send_error(conn, 400, error)
 
-      {:validate, {:error, message}} ->
+      {:validate, {:error, _message}} ->
         send_error(conn, 401, AuthErrorHelper.error_message(:unauthorized))
     end
   end

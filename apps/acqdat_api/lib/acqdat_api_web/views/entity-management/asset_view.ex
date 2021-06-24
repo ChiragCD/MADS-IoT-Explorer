@@ -3,7 +3,7 @@ defmodule AcqdatApiWeb.EntityManagement.AssetView do
   alias AcqdatApiWeb.EntityManagement.{AssetView, AssetTypeView, SensorView}
   alias AcqdatApiWeb.IotManager.GatewayView
   alias AcqdatCore.Model.EntityManagement.Asset, as: AssetModel
-  alias AcqdatCore.ElasticSearch
+  # alias AcqdatCore.ElasticSearch
 
   def render("asset_tree.json", %{asset: asset}) do
     assets =

@@ -4,7 +4,7 @@ defmodule AcqdatApi.Alerts.Policy do
   """
 
   def list_policies() do
-    Enum.reduce(PolicyDefinitionModuleEnum.__enum_map__(), [], fn {key, value}, acc ->
+    Enum.reduce(PolicyDefinitionModuleEnum.__enum_map__(), [], fn {key, _value}, acc ->
       acc ++ [key]
     end)
   end

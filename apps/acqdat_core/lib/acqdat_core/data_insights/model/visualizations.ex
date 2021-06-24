@@ -1,6 +1,6 @@
 defmodule AcqdatCore.Model.DataInsights.Visualizations do
   alias AcqdatCore.DataInsights.Schema.Visualizations
-  alias AcqdatCore.Model.Helper, as: ModelHelper
+  # alias AcqdatCore.Model.Helper, as: ModelHelper
   alias AcqdatCore.Repo
   import Ecto.Query
 

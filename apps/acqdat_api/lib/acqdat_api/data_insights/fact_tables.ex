@@ -9,7 +9,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
   alias AcqdatCore.Repo
   alias AcqdatApi.DataStructure.Trees.NaryTree
   alias Ecto.Multi
-  alias AcqdatCore.Schema.EntityManagement.SensorsData, as: SD
+  # alias AcqdatCore.Schema.EntityManagement.SensorsData, as: SD
 
   defdelegate get_fact_table_headers(fact_table_id), to: FactTables
 
@@ -56,7 +56,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
     })
   end
 
-  def create(fact_table_name, org_id, %{name: project_name, id: project_id}, %{id: creator_id}) do
+  def create(fact_table_name, org_id, %{name: _project_name, id: project_id}, %{id: creator_id}) do
     FactTables.create(%{
       name: fact_table_name,
       org_id: org_id,
@@ -80,7 +80,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
 
   def compute_sensors(fact_table_id, sensor_types, uniq_sensor_types) do
     [
-      %{"id" => sensor_type_id, "date_from" => date_from, "date_to" => date_to, "name" => name}
+      %{"id" => sensor_type_id, "date_from" => date_from, "date_to" => date_to, "name" => _name}
       | _
     ] = uniq_sensor_types
 
@@ -211,7 +211,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
           [[key] ++ List.flatten(Enum.map(metadatas, fn metadata -> Map.values(metadata) end))]
       end)
 
-    output =
+    _output =
       if data != [] do
         headers_metadata = %{
           "#{asset_type_id}" =>
@@ -298,7 +298,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
         {headers, data1}
       end
 
-    output =
+    _output =
       if data != [] do
         fact_table_name = "fact_table_#{fact_table_id}"
 
@@ -381,7 +381,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
         }
       end
 
-    output =
+    _output =
       if output[:data] != [] do
         headers_metadata =
           if metadata_name == "name",
@@ -426,7 +426,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
       end
   end
 
-  def fetch_descendants(fact_table_id, parent_tree, root_node, entities_list, node_tracker) do
+  def fetch_descendants(fact_table_id, parent_tree, root_node, entities_list, _node_tracker) do
     {subtree, node_tracker} = traverse_n_gen_subtree(parent_tree, root_node, entities_list, [])
 
     if Enum.sort(Enum.uniq(List.flatten(node_tracker))) == Enum.sort(entities_list) do
@@ -594,7 +594,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
   end
 
   def compute_table_row_len(subtree) do
-    Enum.reduce(subtree.nodes, 0, fn {key, node}, size ->
+    Enum.reduce(subtree.nodes, 0, fn {_key, node}, size ->
       if node.content != :empty do
         if node.type == "SensorType" and node.content != ["name"] do
           len = length(node.content -- ["name"]) * 2
@@ -612,10 +612,10 @@ defmodule AcqdatApi.DataInsights.FactTables do
     Map.keys(output)
     |> Enum.uniq()
     |> Stream.with_index(0)
-    |> Enum.reduce({%{}, 0}, fn {entity_type_id, index}, {acc, pos} ->
+    |> Enum.reduce({%{}, 0}, fn {entity_type_id, _index}, {acc, pos} ->
       {index_pos, res} =
         Stream.with_index(subtree.nodes[entity_type_id].content, pos)
-        |> Enum.reduce({pos, %{}}, fn {v, table_indx}, {ind, acc} ->
+        |> Enum.reduce({pos, %{}}, fn {v, table_indx}, {_ind, acc} ->
           if subtree.nodes[entity_type_id].type == "SensorType" and v != "name" do
             ind_pos_of_entity =
               Enum.find_index(subtree.nodes[entity_type_id].content, fn x -> x == v end)
@@ -661,7 +661,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
     |> Enum.reduce(empty_headers, fn entity, acc ->
       pos = headers["#{entity["id"]}_#{entity["name"]}"]["#{entity["metadata_id"]}"]
 
-      res =
+      _res =
         if entity["metadata_name"] == entity["metadata_id"] do
           List.replace_at(
             acc,
@@ -920,7 +920,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
           parent_data = Enum.map(parent_data, fn entity -> entity[:id] end) |> Enum.uniq()
           assets = AssetModel.get_all_by_ids(parent_data)
 
-          asset_ids =
+          _asset_ids =
             Enum.reduce(assets, [], fn asset, acc ->
               data = AssetModel.fetch_child_descendants(asset)
 
@@ -1015,7 +1015,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
         {subtree_map, node_tracker}
 
       _ ->
-        res =
+        _res =
           Enum.reduce(tree_node.children, {subtree_map, node_tracker}, fn child_id,
                                                                           {acc1, acc2} ->
             node = NaryTree.get(tree, child_id)
@@ -1103,7 +1103,7 @@ defmodule AcqdatApi.DataInsights.FactTables do
     res
   end
 
-  defp run_under_transaction(multi, result_key) do
+  defp run_under_transaction(multi, _result_key) do
     multi
     |> Repo.transaction(timeout: :infinity)
     |> case do

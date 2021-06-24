@@ -254,9 +254,9 @@ defmodule AcqdatApi.RoleManagement.User do
     end
   end
 
-  defp verify_error_changeset({:error, changeset}) do
-    {:error, %{error: extract_changeset_error(changeset)}}
-  end
+  # defp verify_error_changeset({:error, changeset}) do
+  #   {:error, %{error: extract_changeset_error(changeset)}}
+  # end
 
   defp mark_invitation_token_as_invalid({:ok, _data}) do
     {:error, %{error: resp_msg(:invitation_token_expired)}}

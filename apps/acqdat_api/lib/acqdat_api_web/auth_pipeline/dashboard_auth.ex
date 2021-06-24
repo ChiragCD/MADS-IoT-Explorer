@@ -24,7 +24,7 @@ defmodule AcqdatApiWeb.DashboardExportAuth do
     verify_dashboard(conn, DEModel.verify_uuid_and_token(dashboard_uuid, token))
   end
 
-  defp verify_dashboard(conn, {:error, message}) do
+  defp verify_dashboard(conn, {:error, _message}) do
     conn
     |> put_status(401)
   end

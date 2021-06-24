@@ -81,6 +81,16 @@ defmodule AcqdatCore.Model.EntityManagement.Sensor do
     end
   end
 
+  def get(query) when is_map(query) do
+    case Repo.get_by(Sensor, query) do
+      nil ->
+        {:error, "not found"}
+
+      sensor ->
+        {:ok, sensor}
+    end
+  end
+
   def remove_sensor(sensor_ids) do
     query =
       from(sensor in Sensor,
@@ -99,20 +109,18 @@ defmodule AcqdatCore.Model.EntityManagement.Sensor do
     Repo.update_all(query, set: [gateway_id: gateway.id])
   end
 
-  def get(query) when is_map(query) do
-    case Repo.get_by(Sensor, query) do
-      nil ->
-        {:error, "not found"}
-
-      sensor ->
-        {:ok, sensor}
-    end
-  end
-
   def get_all_by_sensor_type(entity_ids) do
     Sensor
     |> where([sensor], sensor.sensor_type_id in ^entity_ids)
     |> order_by(:id)
+    |> Repo.all()
+  end
+
+  def get_all_by_sensor_type(sensor_type_id) do
+    from(sensor in Sensor,
+      where: sensor.sensor_type_id == ^sensor_type_id,
+      select: map(sensor, [:id, :name])
+    )
     |> Repo.all()
   end
 
@@ -182,18 +190,17 @@ defmodule AcqdatCore.Model.EntityManagement.Sensor do
     Repo.all(query) |> Repo.preload(preloads)
   end
 
-  def get_all_by_sensor_type(sensor_type_id) do
-    from(sensor in Sensor,
-      where: sensor.sensor_type_id == ^sensor_type_id,
-      select: map(sensor, [:id, :name])
-    )
-    |> Repo.all()
-  end
-
   def child_sensors_query(root) when not is_list(root) do
     from(sensor in Sensor,
       preload: [:sensor_type, :gateway],
       where: sensor.parent_id == ^root.id and sensor.parent_type == "Asset"
+    )
+  end
+
+  def child_sensors_query(asset_ids) when is_list(asset_ids) do
+    from(sensor in Sensor,
+      preload: [:sensor_type],
+      where: sensor.parent_id in ^asset_ids and sensor.parent_type == "Asset"
     )
   end
 
@@ -205,13 +212,6 @@ defmodule AcqdatCore.Model.EntityManagement.Sensor do
           sensor.sensor_type_id in ^sensor_type_ids
     )
     |> Repo.all()
-  end
-
-  def child_sensors_query(asset_ids) when is_list(asset_ids) do
-    from(sensor in Sensor,
-      preload: [:sensor_type],
-      where: sensor.parent_id in ^asset_ids and sensor.parent_type == "Asset"
-    )
   end
 
   def child_sensors(root) do
@@ -318,7 +318,7 @@ defmodule AcqdatCore.Model.EntityManagement.Sensor do
 
     gateway_data = Gateway.get_names_by_ids(gateway_ids)
 
-    output =
+    _output =
       Enum.reduce(data_grouped_by_gateway, workbook, fn {gateway_id, value}, acc ->
         {:ok, workbook} = acc
 
@@ -351,8 +351,8 @@ defmodule AcqdatCore.Model.EntityManagement.Sensor do
                 empty_row = List.duplicate(nil, rows_len)
 
                 res =
-                  Enum.reduce(sensor_data, [], fn {sensor_id, params}, acc ->
-                    res =
+                  Enum.reduce(sensor_data, [], fn {sensor_id, params}, _acc ->
+                    _res =
                       Enum.reduce(params, empty_row, fn param, acc1 ->
                         indx_pos =
                           Enum.find_index(header_uuids, fn x ->

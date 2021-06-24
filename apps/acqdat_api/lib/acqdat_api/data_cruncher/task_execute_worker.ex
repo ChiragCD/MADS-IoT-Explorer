@@ -2,7 +2,7 @@ defmodule AcqdatApi.DataCruncher.TaskExecuteWorker do
   use GenServer
   alias AcqdatCore.DataCruncher.Domain.Workflow
   alias AcqdatCore.DataCruncher.Model.Task, as: TaskModel
-  alias AcqdatCore.Repo
+  # alias AcqdatCore.Repo
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)

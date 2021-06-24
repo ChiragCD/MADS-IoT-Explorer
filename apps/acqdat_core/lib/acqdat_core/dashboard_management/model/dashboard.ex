@@ -1,8 +1,8 @@
 defmodule AcqdatCore.Model.DashboardManagement.Dashboard do
   import Ecto.Query
   alias AcqdatCore.DashboardManagement.Schema.Dashboard
-  alias AcqdatCore.Model.DashboardManagement.WidgetInstance, as: WidgetInstanceModel
-  alias AcqdatCore.Model.DashboardManagement.CommandWidget
+  # alias AcqdatCore.Model.DashboardManagement.WidgetInstance, as: WidgetInstanceModel
+  # alias AcqdatCore.Model.DashboardManagement.CommandWidget
   alias AcqdatCore.Repo
 
   def create(params) do

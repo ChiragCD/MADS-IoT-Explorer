@@ -101,7 +101,7 @@ defmodule AcqdatCore.DataInsights.Schema.Visualizations.PivotTables do
 
     values_data = pivot_values_col_data(values, rows_data)
     [value | _] = values
-    value_name = "\"#{value["name"]}\""
+    _value_name = "\"#{value["name"]}\""
 
     if filters != [] do
       """
@@ -433,18 +433,18 @@ defmodule AcqdatCore.DataInsights.Schema.Visualizations.PivotTables do
   defp pivot_values_col_data(values, rows_data) do
     Enum.reduce(values, rows_data, fn value, acc ->
       if Enum.member?(["sum", "avg", "min", "max"], value["action"]) do
-        rows_data <>
+        acc <>
           "," <>
           "ROUND(#{value["action"]}(CAST(\"#{value["name"]}\" AS NUMERIC)), 2) as \"#{
             value["title"]
           }\""
       else
-        rows_data <>
+        acc <>
           "," <> "#{value["action"]}(\"#{value["name"]}\") as \"#{value["title"]}\""
       end
     end)
   end
-
+  
   defp value_data_string(value) do
     if Enum.member?(["sum", "avg", "min", "max"], value["action"]) do
       "ROUND(#{value["action"]}(CAST(\"#{value["name"]}\" AS NUMERIC)), 2) as \"#{value["title"]}\""
